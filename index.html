@@ -76,13 +76,15 @@
               class="p-1 border-2 border-solid rounded border-blue-300 bg-blue-300 hover:bg-blue-400" 
               @click="isValid(primeiraUf.value, segundaUf.value, dataComparacao.value) ? 
               (comparar(primeiraUf.value, segundaUf.value, dataComparacao.value), $dispatch('evento-comparar', { mostrar: 'true' }))
-              : $dispatch('evento-validacao', { mostrar: 'true' })
+              : $dispatch('evento-validacao', { mostrar: 'true', tipo: 'comparar' })
               ">
               Comparar
             </button>
             <button type="button"
               class="p-1 border-2 border-solid rounded border-green-300 bg-green-300 hover:bg-green-400 w-24"
-              @click="$dispatch('evento-salvar', { mostrar: 'true' })">
+              @click="isValid(primeiroEstado.uf, segundoEstado.uf, primeiroEstado.data) ?
+              $dispatch('evento-salvar', { mostrar: 'true' })
+              : $dispatch('evento-validacao', { mostrar: 'true', tipo: 'salvar' })">
               Salvar
             </button>
           </div>
@@ -302,17 +304,23 @@
       </div>
     </div>
     <!-- VALIDAÇÃO -->
-    <div class="fixed mt-32" x-data="{ open: false }" x-show="open" x-cloak
+    <div class="fixed mt-32" x-data="{ open: false, tipo: '' }" x-show="open" x-cloak
       x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-90"
       x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-300"
       x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90"
-      x-on:evento-validacao.window="open = $event.detail.mostrar" @click.outside="open = false">
+      x-on:evento-validacao.window="open = $event.detail.mostrar; tipo = $event.detail.tipo"
+      @click.outside="open = false">
       <div class="border-2 border-solid rounded min-w-[450px] bg-gray-100">
         <div class="flex flex-col m-3">
-          <div class="flex flex-col items-center text-2xl mb-2">
+          <div class="flex flex-col items-center text-2xl mb-2" x-show="tipo === 'comparar'">
             <strong>ATENÇÃO</strong>
             <span>Existe(m) campo(s) não preenchido(s).</span>
             <span>Deve ser selecionado as duas UFs e uma data.</span>
+          </div>
+          <div class="flex flex-col items-center text-2xl mb-2" x-show="tipo === 'salvar'">
+            <strong>ATENÇÃO</strong>
+            <span>Para salvar uma comparação, é necessário comparar primeiro.</span>
+            <span>Selecione as duas UFs, uma data, clique em comparar e, após isso, clique em salvar.</span>
           </div>
           <div class="flex flex-row justify-center gap-3" x-data="salvar">
             <button type="button"
