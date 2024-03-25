@@ -101,6 +101,7 @@
               <div class="flex flex-col items-center text-2xl mb-2 border-solid border-b-2">
                 <span x-text="primeiroEstado.uf"></span>
                 <span x-text="primeiroEstado.data"></span>
+                <span class="text-xl text-red-600" x-text="primeiroEstado.possuiDados ? '' : 'UF sem dados nesta data'"></span>
               </div>
               <div>
                 <span>Confirmações:</span>
@@ -125,6 +126,7 @@
               <div class="flex flex-col items-center text-2xl mb-2 border-solid border-b-2">
                 <span x-text="segundoEstado.uf"></span>
                 <span x-text="segundoEstado.data"></span>
+                <span class="text-xl text-red-600" x-text="segundoEstado.possuiDados ? '' : 'UF sem dados nesta data'"></span>
               </div>
               <div>
                 <span>Confirmações:</span>
