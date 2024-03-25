@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/src/index.css" rel="stylesheet">
+
+  <title>COVID Benchmark - Salvos</title>
+</head>
+
+<body class="font-mono text-xl">
+  <!-- NAVBAR -->
+  <div class="bg-gray-800">
+    <nav class="flex items-center justify-center mx-80 gap-6 py-4 text-gray-300 text-2xl">
+      <a href="/">
+        <span class="hover:text-gray-100">Comparar</span>
+      </a>
+      <div>
+        <div>
+          <a href="/" class="flex flex-col gap-1 xl:flex-row">
+            <span class="text-6xl text-red-800">COVID</span>
+            <span class="text-6xl text-white">Benchmark</span>
+          </a>
+        </div>
+      </div>
+      <a href="/salvos.html">
+        <span class="hover:text-gray-100">Salvos</span>
+      </a>
+    </nav>
+  </div>
+  <!-- CONTEÚDO -->
+  <div class="flex flex-col items-center" x-data="listar" x-init="listarTodos">
+    <!-- INFORMATIVO -->
+    <div class="flex flex-col">
+      <span class="text-4xl mb-2 text-left">Comparações Salvas</span>
+      <span class="text-2xl mb-1 text-left">Como funciona?</span>
+      <div class="pl-8 mb-2">
+        <ul class="list-disc text-base">
+          <li>Nesta aba você visualiza todas as comparações salvas</li>
+          <li>Você pode executar, editar ou excluir uma comparação salva</li>
+          <li>Ao clicar em 'Comparar' você será direcionado para a aba "Comparar", onde a comparação será realizada
+            automaticamente
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- FILTRO -->
+    <div class="border-2 border-solid rounded mb-10 w-max">
+      <div class="flex flex-row items-center gap-2 m-3">
+        <div>
+          <input id="nomeBenchmarkSalvo" name="nomeBenchmarkSalvo" placeholder="Título do benchmark" class="w-96 h-10 px-1" />
+        </div>
+        <button type="button"
+          class="w-24 p-1 border-2 border-solid rounded border-gray-300 bg-gray-300 hover:bg-gray-400"
+          @click="listarFiltrados(nomeBenchmarkSalvo.value)">
+          Buscar
+        </button>
+        <button type="button"
+        class="p-1 border-2 border-solid rounded border-lime-300 bg-lime-300 hover:bg-lime-400"
+        @click="listarFiltrados('')">
+        Listar todos
+      </button>
+      </div>
+    </div>
+    <!-- COMPARAÇÕES SALVAS -->
+    <div class="grid grid-cols-2 gap-3 xl:grid-cols-3">
+      <template x-for="benchmarkSalvo in benchmarkSalvoFiltrado" :key="benchmarkSalvo.id">
+        <div class="border-2 border-solid rounded mb-10 w-[450px] h-[300px]">
+          <div class="m-3">
+            <div class="mb-3">
+              <div>
+                <span>Título:</span>
+                <span x-text="benchmarkSalvo.nomeBenchmark"></span>
+              </div>
+              <div>
+                <span>Primeira UF:</span>
+                <span x-text="benchmarkSalvo.primeiroEstado"></span>
+              </div>
+              <div>
+                <span>Segunda UF:</span>
+                <span x-text="benchmarkSalvo.segundoEstado"></span>
+              </div>
+              <div>
+                <span>Data:</span>
+                <span x-text="benchmarkSalvo.data"></span>
+              </div>
+              <div>
+                <span>Observações:</span>
+                <span x-text="benchmarkSalvo.observacao"></span>
+              </div>
+            </div>
+            <div class="flex justify-center gap-2">
+              <button type="button"
+                class="p-1 border-2 border-solid rounded border-blue-300 bg-blue-300 hover:bg-blue-400">
+                Comparar
+              </button>
+              <button type="button"
+                class="w-24 p-1 border-2 border-solid rounded border-yellow-300 bg-yellow-300 hover:bg-yellow-400">
+                Editar
+              </button>
+              <button type="button"
+                class="w-24 p-1 border-2 border-solid rounded border-red-300 bg-red-300 hover:bg-red-400">
+                Excluir
+              </button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+  </div>
+  <script type="module" src="/src/index.js"></script>
+</body>
+
+</html>
