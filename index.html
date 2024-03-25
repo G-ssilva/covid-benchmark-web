@@ -57,7 +57,6 @@
               <option value="" selected></option>
               <template x-for="(nome, estado) in estados">
                 <option x-bind:value="estado" x-text="nome"></option>
-
               </template>
             </select>
             <label for="segundaUf">Segunda UF:</label>
@@ -74,13 +73,13 @@
           </div>
           <div>
             <button type="button"
-              class="p-1 border-2 border-solid rounded border-blue-300 bg-blue-300 hover:bg-blue-400"
-              @click="comparar(primeiraUf.value, segundaUf.value, dataComparacao.value) 
+              class="p-1 border-2 border-solid rounded border-blue-300 bg-blue-300 hover:bg-blue-400" @click="comparar(primeiraUf.value, segundaUf.value, dataComparacao.value) 
               $dispatch('evento-comparar', { mostrar: 'true' })">
               Comparar
             </button>
             <button type="button"
-              class="p-1 border-2 border-solid rounded border-green-300 bg-green-300 hover:bg-green-400">
+              class="p-1 border-2 border-solid rounded border-green-300 bg-green-300 hover:bg-green-400 w-24"
+              @click="$dispatch('evento-salvar', { mostrar: 'true' })">
               Salvar
             </button>
           </div>
@@ -250,6 +249,54 @@
         </div>
       </div>
     </div>
+    <!-- SALVAR/EDITAR -->
+    <div class="absolute mt-32" x-data="{ open: false }" x-show="open" x-cloak
+      x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-90"
+      x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-300"
+      x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90"
+      x-on:evento-salvar.window="open = $event.detail.mostrar">
+      <div class="border-2 border-solid rounded min-w-[450px] bg-gray-100">
+        <div class="flex flex-col m-3">
+          <div class="flex justify-center text-2xl mb-2">
+            <span>Salvar comparação</span>
+          </div>
+          <div>
+            <label for="nomeBenchmarkSalvo">Nome do Benchmark:</label>
+            <input type="text" id="nomeBenchmarkSalvo" name="nomeBenchmarkSalvo" min="1" max="255" required
+              class="border-2 border-solid rounded bg-gray-200 hover:bg-gray-300" />
+          </div>
+          <div>
+            <span x-text="'Primeira UF: ' + primeiroEstado.uf"></span>
+          </div>
+          <div>
+            <span x-text="'Segunda UF: ' + segundoEstado.uf"></span>
+          </div>
+          <div>
+            <span x-text="'Data da Comparação: ' + primeiroEstado.data"></span>
+          </div>
+          <div class="flex flex-col mb-2">
+            <label for="observacaoBenchmarkSalvo">Observações do Benchmark:</label>
+            <textarea id="observacaoBenchmarkSalvo" name="observacaoBenchmarkSalvo" minlength="0" maxlength="255"
+              class="border-2 border-solid rounded bg-gray-200 hover:bg-gray-300"></textarea>
+          </div>
+          <div class="flex flex-row justify-center gap-3" x-data="salvar">
+            <button type="button"
+              class="p-1 border-2 border-solid rounded border-gray-300 bg-gray-300 hover:bg-gray-400"
+              @click="open = false">
+              Cancelar
+            </button>
+            <button type="button"
+              class="p-1 border-2 border-solid rounded border-green-300 bg-green-300 hover:bg-green-400 w-24"
+              @click="salvar(nomeBenchmarkSalvo, primeiroEstado.uf, segundoEstado.uf, primeiroEstado.data, observacaoBenchmarkSalvo)
+              open = false">
+              Salvar
+            </button>
+          </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
   <script type="module" src="/src/index.js"></script>
 </body>
