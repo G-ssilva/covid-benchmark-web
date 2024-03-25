@@ -73,16 +73,14 @@
           </div>
           <div>
             <button type="button"
-              class="p-1 border-2 border-solid rounded border-blue-300 bg-blue-300 hover:bg-blue-400" 
-              @click="isValid(primeiraUf.value, segundaUf.value, dataComparacao.value) ? 
+              class="p-1 border-2 border-solid rounded border-blue-300 bg-blue-300 hover:bg-blue-400" @click="isValid(primeiraUf.value, segundaUf.value, dataComparacao.value) ? 
               (comparar(primeiraUf.value, segundaUf.value, dataComparacao.value), $dispatch('evento-comparar', { mostrar: 'true' }))
               : $dispatch('evento-validacao', { mostrar: 'true', tipo: 'comparar' })
               ">
               Comparar
             </button>
             <button type="button"
-              class="p-1 border-2 border-solid rounded border-green-300 bg-green-300 hover:bg-green-400 w-24"
-              @click="isValid(primeiroEstado.uf, segundoEstado.uf, primeiroEstado.data) ?
+              class="p-1 border-2 border-solid rounded border-green-300 bg-green-300 hover:bg-green-400 w-24" @click="isValid(primeiroEstado.uf, segundoEstado.uf, primeiroEstado.data) ?
               $dispatch('evento-salvar', { mostrar: 'true' })
               : $dispatch('evento-validacao', { mostrar: 'true', tipo: 'salvar' })">
               Salvar
@@ -105,7 +103,8 @@
               <div class="flex flex-col items-center text-2xl mb-2 border-solid border-b-2">
                 <span x-text="primeiroEstado.uf"></span>
                 <span x-text="primeiroEstado.data"></span>
-                <span class="text-xl text-red-600" x-text="primeiroEstado.possuiDados ? '' : 'UF sem dados nesta data'"></span>
+                <span class="text-xl text-red-600"
+                  x-text="primeiroEstado.possuiDados ? '' : 'UF sem dados nesta data'"></span>
               </div>
               <div>
                 <span>Confirmações:</span>
@@ -130,7 +129,8 @@
               <div class="flex flex-col items-center text-2xl mb-2 border-solid border-b-2">
                 <span x-text="segundoEstado.uf"></span>
                 <span x-text="segundoEstado.data"></span>
-                <span class="text-xl text-red-600" x-text="segundoEstado.possuiDados ? '' : 'UF sem dados nesta data'"></span>
+                <span class="text-xl text-red-600"
+                  x-text="segundoEstado.possuiDados ? '' : 'UF sem dados nesta data'"></span>
               </div>
               <div>
                 <span>Confirmações:</span>
@@ -256,18 +256,18 @@
         </div>
       </div>
     </div>
-        <!-- FUNDO PRETO -->
+    <!-- FUNDO PRETO -->
     <div class="absolute w-full h-screen bg-gray-900 opacity-50" x-data="{ open: false }" x-show="open" x-cloak
-        x-on:evento-salvar.window="open = $event.detail.mostrar" x-on:evento-validacao.window="open = $event.detail.mostrar"
-        x-on:evento-fechar-fundo.window="open = $event.detail.mostrar">
+      x-on:evento-salvar.window="open = $event.detail.mostrar"
+      x-on:evento-validacao.window="open = $event.detail.mostrar"
+      x-on:evento-fechar-fundo.window="open = $event.detail.mostrar">
     </div>
     <!-- SALVAR -->
-    <div class="fixed mt-32" x-data="{ open: false }" x-show="open" x-cloak
+    <div class="fixed mt-32" x-data="{ open: false, isValid: true }" x-show="open" x-cloak
       x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-90"
       x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-300"
       x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90"
-      x-on:evento-salvar.window="open = $event.detail.mostrar" 
-      @click.outside="open = false
+      x-on:evento-salvar.window="open = $event.detail.mostrar" @click.outside="open = false
       $dispatch('evento-fechar-fundo', { mostrar: false })">
       <div class="border-2 border-solid rounded min-w-[450px] bg-gray-100">
         <div class="flex flex-col m-3">
@@ -276,8 +276,10 @@
           </div>
           <div>
             <label for="nomeBenchmarkSalvo">Título:</label>
-            <input type="text" id="nomeBenchmarkSalvo" name="nomeBenchmarkSalvo" min="1" max="90" required
-              class="border-2 border-solid rounded bg-gray-200 hover:bg-gray-300 w-[330px]" />
+            <input type="text" id="nomeBenchmarkSalvo" name="nomeBenchmarkSalvo" min="1" max="90" required 
+            :class="'p-1 border-2 border-solid rounded bg-gray-200 hover:bg-gray-300 w-[330px] ' 
+            + (isValid ? '' : 'border-red-300')" 
+            :placeholder="isValid ? '': 'Título deve ser informado'" />
           </div>
           <div>
             <span x-text="'Primeira UF: ' + primeiroEstado.uf"></span>
@@ -295,16 +297,17 @@
           </div>
           <div class="flex flex-row justify-center gap-3" x-data="salvar">
             <button type="button"
-              class="p-1 border-2 border-solid rounded border-gray-300 bg-gray-300 hover:bg-gray-400"
-              @click="open = false
-              $dispatch('evento-fechar-fundo', { mostrar: false })">
+              class="p-1 border-2 border-solid rounded border-gray-300 bg-gray-300 hover:bg-gray-400" @click="open = false
+              $dispatch('evento-fechar-fundo', { mostrar: false })
+              isValid = true">
               Cancelar
             </button>
             <button type="button"
-              class="p-1 border-2 border-solid rounded border-green-300 bg-green-300 hover:bg-green-400 w-24"
-              @click="salvar(nomeBenchmarkSalvo, primeiroEstado.uf, segundoEstado.uf, primeiroEstado.data, observacaoBenchmarkSalvo)
-              open = false
-              $dispatch('evento-fechar-fundo', { mostrar: false })">
+              class="p-1 border-2 border-solid rounded border-green-300 bg-green-300 hover:bg-green-400 w-24" @click="nomeBenchmarkSalvo.value !== '' ? 
+              (salvar(nomeBenchmarkSalvo, primeiroEstado.uf, segundoEstado.uf, primeiroEstado.data, observacaoBenchmarkSalvo),
+              open = false, $dispatch('evento-fechar-fundo', { mostrar: false }), isValid = true)
+              : isValid = false;
+              ">
               Salvar
             </button>
           </div>
@@ -317,7 +320,7 @@
       x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-90"
       x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-300"
       x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90"
-      x-on:evento-validacao.window="open = $event.detail.mostrar; tipo = $event.detail.tipo"
+      x-on:evento-validacao.window="open = $event.detail.mostrar; tipo = $event.detail.tipo" 
       @click.outside="open = false
       $dispatch('evento-fechar-fundo', { mostrar: false })">
       <div class="border-2 border-solid rounded min-w-[450px] bg-gray-100">
@@ -334,7 +337,7 @@
           </div>
           <div class="flex flex-row justify-center gap-3" x-data="salvar">
             <button type="button"
-              class="w-24 p-1 border-2 border-solid rounded border-yellow-300 bg-yellow-300 hover:bg-yellow-400"
+              class="w-24 p-1 border-2 border-solid rounded border-yellow-300 bg-yellow-300 hover:bg-yellow-400" 
               @click="open = false
               $dispatch('evento-fechar-fundo', { mostrar: false })">
               OK
