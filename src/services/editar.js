@@ -5,6 +5,7 @@ export default function Editar() {
     async editar(idBenchmark, observacao) {
       await api.put(`${api.defaults.baseURL}/editar/${idBenchmark}`,
       {observacao: observacao});
+      location.reload(true);
     }
   }
 }

@@ -5,6 +5,7 @@ export default function Excluir() {
     async excluir(idBenchmark) {
       idBenchmark = Number(idBenchmark);
       await api.delete(`${api.defaults.baseURL}/deletar/${idBenchmark}`);
+      location.reload(true);
     }
   }
 }
