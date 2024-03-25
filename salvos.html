@@ -96,7 +96,9 @@
                 Comparar
               </button>
               <button type="button"
-                class="w-24 p-1 border-2 border-solid rounded border-yellow-300 bg-yellow-300 hover:bg-yellow-400">
+                class="w-24 p-1 border-2 border-solid rounded border-yellow-300 bg-yellow-300 hover:bg-yellow-400"
+                @click="$dispatch('evento-editar', { mostrar: 'true', 
+                nomeBenchmark: benchmarkSalvo.nomeBenchmark, benchmarkSalvo: benchmarkSalvo})">
                 Editar
               </button>
               <button type="button"
@@ -134,6 +136,53 @@
               @click="excluir(idBenchmark)
               open = false">
               Excluir
+            </button>
+          </div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- EDITAR -->
+    <div class="fixed mt-52" x-data="{ open: false, benchmarkSalvo: '' }" 
+      x-show="open" x-cloak
+      x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-90"
+      x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-300"
+      x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90"
+      x-on:evento-editar.window="open = $event.detail.mostrar, benchmarkSalvo = $event.detail.benchmarkSalvo" 
+      @click.outside="open = false">
+      <div class="border-2 border-solid rounded min-w-[450px] bg-gray-100">
+        <div class="flex flex-col m-3">
+          <div class="flex justify-center text-2xl mb-2">
+            <span>Editar comparação</span>
+          </div>
+          <div>
+            <span x-text="'Título: ' + benchmarkSalvo.nomeBenchmark"></span>
+          </div>
+          <div>
+            <span x-text="'Primeira UF: ' + benchmarkSalvo.primeiroEstado"></span>
+          </div>
+          <div>
+            <span x-text="'Segunda UF: ' + benchmarkSalvo.segundoEstado"></span>
+          </div>
+          <div>
+            <span x-text="'Data: ' + benchmarkSalvo.data"></span>
+          </div>
+          <div class="flex flex-col mb-2">
+            <label for="observacaoBenchmarkSalvo">Observações do Benchmark:</label>
+            <textarea id="observacaoBenchmarkSalvo" name="observacaoBenchmarkSalvo" minlength="0" maxlength="255"
+              class="border-2 border-solid rounded bg-gray-200 hover:bg-gray-300" x-text="benchmarkSalvo.observacao"></textarea>
+          </div>
+          <div class="flex flex-row justify-center gap-3" x-data="editar">
+            <button type="button"
+              class="p-1 border-2 border-solid rounded border-gray-300 bg-gray-300 hover:bg-gray-400"
+              @click="open = false">
+              Cancelar
+            </button>
+            <button type="button"
+              class="p-1 border-2 border-solid rounded border-yellow-300 bg-yellow-300 hover:bg-yellow-400 w-24" 
+              @click="editar(benchmarkSalvo.id, observacaoBenchmarkSalvo.value)
+              open = false">
+              Editar
             </button>
           </div>
           </button>
