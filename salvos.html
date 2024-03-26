@@ -6,10 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="/src/index.css" rel="stylesheet">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;800&display=swap" rel="stylesheet">
+
   <title>COVID Benchmark - Salvos</title>
 </head>
 
-<body class="font-mono text-xl">
+<body class="font-sora text-lg">
   <!-- NAVBAR -->
   <div class="bg-gray-800">
     <nav class="flex items-center justify-center mx-80 gap-6 py-4 text-gray-300 text-2xl">
@@ -33,8 +37,8 @@
   <div class="flex flex-col items-center" x-data="listar" x-init="listarTodos">
     <!-- INFORMATIVO -->
     <div class="flex flex-col">
-      <span class="text-4xl mb-2 text-left">Comparações Salvas</span>
-      <span class="text-2xl mb-1 text-left">Como funciona?</span>
+      <span class="text-3xl mb-2 text-left">Comparações Salvas</span>
+      <span class="text-1xl mb-1 text-left">Como funciona?</span>
       <div class="pl-8 mb-2">
         <ul class="list-disc text-base">
           <li>Nesta aba você visualiza todas as comparações salvas</li>
@@ -52,18 +56,18 @@
             class="w-96 h-10 px-1" />
         </div>
         <button type="button"
-          class="w-24 p-1 border-2 border-solid rounded border-gray-300 bg-gray-300 hover:bg-gray-400"
+          class="w-24 p-1 border-2 border-solid rounded border-gray-400 bg-gray-400 hover:bg-gray-500"
           @click="listarFiltrados(nomeBenchmarkSalvo.value)">
           Buscar
         </button>
-        <button type="button" class="p-1 border-2 border-solid rounded border-lime-300 bg-lime-300 hover:bg-lime-400"
+        <button type="button" class="p-1 border-2 border-solid rounded border-lime-400 bg-lime-400 hover:bg-lime-500"
           @click="listarFiltrados('')">
           Listar todos
         </button>
       </div>
     </div>
     <!-- COMPARAÇÕES SALVAS -->
-    <div class="grid grid-cols-2 gap-3 xl:grid-cols-1">
+    <div class="grid grid-cols-2 gap-3 xl:grid-cols-1 text-gray-600">
       <template x-for="benchmarkSalvo in benchmarkSalvoFiltrado" :key="benchmarkSalvo.id">
         <div class="border-2 border-solid rounded mb-10 w-[1200px] h-max">
           <div class="m-3" x-data="{open: false}">
@@ -99,17 +103,17 @@
               x-transition:leave-end="opacity-0 translate-y-[-10px]"
               x-on:evento-detalhar.window="$event.detail.id === benchmarkSalvo.id ? open = $event.detail.mostrar : null">
               <div>
-                <strong>Diferença entre os estados:</strong>
+                <strong>Diferença entre os Estados:</strong>
               </div>
               <div class="grid grid-cols-2 gap-2">
                 <!-- CONFIRMAÇÕES -->
                 <div class="border-2 border-solid rounded min-w-[450px]">
                   <div class="flex flex-col m-3">
                     <div class="flex justify-center text-2xl mb-2">
-                      <span>Confirmações</span>
+                      <strong>Confirmações</strong>
                     </div>
                     <div>
-                      <span>Diferença de Confirmações:</span>
+                      <strong>Diferença de Confirmações:</strong>
                       <span x-bind:class="{
                       'text-red-600': benchmarkSalvo.dadosComparadosDto.diferencaConfirmacoes < 0,
                       'text-green-600': benchmarkSalvo.dadosComparadosDto.diferencaConfirmacoes > 0
@@ -121,10 +125,10 @@
                 <div class="border-2 border-solid rounded min-w-[450px]">
                   <div class="flex flex-col m-3">
                     <div class="flex justify-center text-2xl mb-2">
-                      <span>Mortes</span>
+                      <strong>Mortes</strong>
                     </div>
                     <div>
-                      <span>Diferença de Mortes:</span>
+                      <strong>Diferença de Mortes:</strong>
                       <span x-bind:class="{
                       'text-red-600': benchmarkSalvo.dadosComparadosDto.diferencaMortes < 0,
                       'text-green-600': benchmarkSalvo.dadosComparadosDto.diferencaMortes > 0
@@ -136,10 +140,10 @@
                 <div class="border-2 border-solid rounded min-w-[450px]">
                   <div class="flex flex-col m-3">
                     <div class="flex justify-center text-2xl mb-2">
-                      <span>Confirmados/100k Habitantes</span>
+                      <strong>Confirmados/100k Habitantes</strong>
                     </div>
                     <div>
-                      <span>Diferença de Confirmados/100k Habitantes:</span>
+                      <strong>Diferença de Confirmados/100k Habitantes:</strong>
                       <span x-bind:class="{
                       'text-red-600': benchmarkSalvo.dadosComparadosDto.diferencaConfirmadosSobreCemMilHabitantes < 0,
                       'text-green-600': benchmarkSalvo.dadosComparadosDto.diferencaConfirmadosSobreCemMilHabitantes > 0
@@ -152,10 +156,10 @@
                 <div class="border-2 border-solid rounded min-w-[450px]">
                   <div class="flex flex-col m-3">
                     <div class="flex justify-center text-2xl mb-2">
-                      <span>Mortes/Confirmados</span>
+                      <strong>Mortes/Confirmados</strong>
                     </div>
                     <div>
-                      <span>Diferença de Mortes/Confirmados:</span>
+                      <strong>Diferença de Mortes/Confirmados:</strong>
                       <span x-bind:class="{
                       'text-red-600': benchmarkSalvo.dadosComparadosDto.diferencaMortesSobreConfirmados < 0,
                       'text-green-600': benchmarkSalvo.dadosComparadosDto.diferencaMortesSobreConfirmados > 0
@@ -167,18 +171,18 @@
             </div>
             <div class="flex justify-center gap-2">
               <button type="button"
-                class="w-24 p-1 border-2 border-solid rounded border-sky-300 bg-sky-300 hover:bg-sky-400"
+                class="text-black w-24 p-1 border-2 border-solid rounded border-sky-400 bg-sky-400 hover:bg-sky-500"
                 @click="$dispatch('evento-detalhar', { mostrar: !open, id: benchmarkSalvo.id })">
                 Detalhar
               </button>
               <button type="button"
-                class="w-24 p-1 border-2 border-solid rounded border-yellow-300 bg-yellow-300 hover:bg-yellow-400"
+                class="text-black w-24 p-1 border-2 border-solid rounded border-yellow-400 bg-yellow-400 hover:bg-yellow-500"
                 @click="$dispatch('evento-editar', { mostrar: 'true', 
                 nomeBenchmark: benchmarkSalvo.nomeBenchmark, benchmarkSalvo: benchmarkSalvo})">
                 Editar
               </button>
               <button type="button"
-                class="w-24 p-1 border-2 border-solid rounded border-red-300 bg-red-300 hover:bg-red-400" 
+                class="text-black w-24 p-1 border-2 border-solid rounded border-red-400 bg-red-400 hover:bg-red-500" 
                 @click="$dispatch('evento-excluir', { mostrar: 'true', 
                 nomeBenchmark: benchmarkSalvo.nomeBenchmark, idBenchmark: benchmarkSalvo.id})">
                 Excluir
@@ -203,18 +207,22 @@
       $dispatch('evento-fechar-fundo', { mostrar: false })">
       <div class="border-2 border-solid rounded w-[400px] bg-gray-100">
         <div class="flex flex-col m-3">
-          <div class="flex justify-center text-2xl mb-2">
-            <span class="text-center"
-              x-text="'Clique em Excluir para confirmar a exclusão do benchmark ' + nomeBenchmark"></span>
+          <div class="flex flex-col items-center text-center mb-2">
+            <div>
+              <strong class="text-2xl mb-2">ATENÇÃO</strong>
+            </div>
+            <div>
+              <span class="text-xl">Clique em Excluir para confirmar a exclusão do benchmark salvo.</span>
+            </div>
           </div>
-          <div class="flex flex-row justify-center gap-3" x-data="excluir">
+          <div class="flex flex-row justify-center gap-3 text-lg" x-data="excluir">
             <button type="button"
-              class="p-1 border-2 border-solid rounded border-gray-300 bg-gray-300 hover:bg-gray-400" @click="open = false 
+              class="p-1 border-2 border-solid rounded border-gray-400 bg-gray-400 hover:bg-gray-500" @click="open = false 
               $dispatch('evento-fechar-fundo', { mostrar: false })">
               Cancelar
             </button>
             <button type="button"
-              class="p-1 border-2 border-solid rounded border-red-300 bg-red-300 hover:bg-red-400 w-24" @click="excluir(idBenchmark)
+              class="p-1 border-2 border-solid rounded border-red-400 bg-red-400 hover:bg-red-500 w-24" @click="excluir(idBenchmark)
               open = false
               $dispatch('evento-fechar-fundo', { mostrar: false })">
               Excluir
@@ -225,7 +233,7 @@
       </div>
     </div>
     <!-- EDITAR -->
-    <div class="fixed mt-52" x-data="{ open: false, benchmarkSalvo: '' }" x-show="open" x-cloak
+    <div class="fixed mt-40" x-data="{ open: false, benchmarkSalvo: '' }" x-show="open" x-cloak
       x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-90"
       x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-300"
       x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90"
@@ -235,35 +243,41 @@
       <div class="border-2 border-solid rounded min-w-[450px] bg-gray-100">
         <div class="flex flex-col m-3">
           <div class="flex justify-center text-2xl mb-2">
-            <span>Editar comparação</span>
+            <strong>Editar comparação</strong>
           </div>
-          <div>
-            <span x-text="'Título: ' + benchmarkSalvo.nomeBenchmark"></span>
-          </div>
-          <div>
-            <span x-text="'Primeira UF: ' + benchmarkSalvo.primeiroEstado"></span>
-          </div>
-          <div>
-            <span x-text="'Segunda UF: ' + benchmarkSalvo.segundoEstado"></span>
-          </div>
-          <div>
-            <span x-text="'Data: ' + benchmarkSalvo.data"></span>
-          </div>
-          <div class="flex flex-col mb-2">
-            <label for="observacaoBenchmarkSalvo">Observações do Benchmark:</label>
-            <textarea id="observacaoBenchmarkSalvo" name="observacaoBenchmarkSalvo" minlength="0" maxlength="255"
-              class="border-2 border-solid rounded bg-gray-200 hover:bg-gray-300"
-              x-text="benchmarkSalvo.observacao"></textarea>
+          <div class="text-lg">
+            <div>
+              <strong>Título:</strong>
+              <span x-text="benchmarkSalvo.nomeBenchmark"></span>
+            </div>
+            <div>
+              <strong>Primeira UF:</strong>
+              <span x-text="benchmarkSalvo.primeiroEstado"></span>
+            </div>
+            <div>
+              <strong>Segunda UF:</strong>
+              <span x-text="benchmarkSalvo.segundoEstado"></span>
+            </div>
+            <div>
+              <strong>Data:</strong>
+              <span x-text="benchmarkSalvo.data"></span>
+            </div>
+            <div class="flex flex-col mb-2">
+              <label for="observacaoBenchmarkSalvo"><strong>Observações do Benchmark:</strong></label>
+              <textarea id="observacaoBenchmarkSalvo" name="observacaoBenchmarkSalvo" minlength="0" maxlength="255"
+                class="border-2 border-solid rounded bg-gray-200 hover:bg-gray-300"
+                x-text="benchmarkSalvo.observacao"></textarea>
+            </div>
           </div>
           <div class="flex flex-row justify-center gap-3" x-data="editar">
             <button type="button"
-              class="p-1 border-2 border-solid rounded border-gray-300 bg-gray-300 hover:bg-gray-400"
+              class="p-1 border-2 border-solid rounded border-gray-400 bg-gray-400 hover:bg-gray-500"
               @click="open = false
               $dispatch('evento-fechar-fundo', { mostrar: false })">
               Cancelar
             </button>
             <button type="button"
-              class="p-1 border-2 border-solid rounded border-yellow-300 bg-yellow-300 hover:bg-yellow-400 w-24" @click="editar(benchmarkSalvo.id, observacaoBenchmarkSalvo.value)
+              class="p-1 border-2 border-solid rounded border-yellow-400 bg-yellow-400 hover:bg-yellow-500 w-24" @click="editar(benchmarkSalvo.id, observacaoBenchmarkSalvo.value)
               open = false
               $dispatch('evento-fechar-fundo', { mostrar: false })">
               Editar
