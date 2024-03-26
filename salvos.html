@@ -193,7 +193,7 @@
       </template>
     </div>
     <!-- FUNDO PRETO -->
-    <div class="absolute w-full h-screen bg-gray-900 opacity-50" x-data="{ open: false }" x-show="open" x-cloak
+    <div class="fixed inset-0 bg-gray-900 opacity-50" x-data="{ open: false }" x-show="open" x-cloak
       x-on:evento-excluir.window="open = $event.detail.mostrar" x-on:evento-editar.window="open = $event.detail.mostrar"
       x-on:evento-fechar-fundo.window="open = $event.detail.mostrar">
     </div>
