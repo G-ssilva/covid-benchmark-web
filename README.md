@@ -23,5 +23,5 @@ Foi feito com referência a uma tela de 1920x1080, possuindo apenas um breakpoin
 - Implementar alertas de sucesso, falha, erro e afins baseado no retorno da API
 - Melhorar os pop-up utilizando, por exemplo, Sweet Alert
 - Ajustar o layout para diferentes aparelhos
-- Refatorar a aplicação pensando em aplicar melhores práticas, padrões, redução de depedência e demais melhorias
+- Refatorar a aplicação pensando em aplicar melhores práticas, padrões, redução de depedências, redução de responsabilidade e demais melhorias
 - Dentre demais ideias que possam surgir para melhorar a aplicação
