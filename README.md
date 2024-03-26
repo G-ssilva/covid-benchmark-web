@@ -12,7 +12,7 @@ Foi feito com referência a uma tela de 1920x1080, possuindo apenas um breakpoin
 - AlpineJS
 - Axios
 
-## Telas Principais
+## Principais telas
 ### Comparar
 ![image](https://github.com/G-ssilva/covid-benchmark-web/assets/85591831/1c8f3cf8-9019-48ac-8c9d-cf51b6ab1cbf)
 ### Salvos
