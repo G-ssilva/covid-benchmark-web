@@ -28,7 +28,6 @@ export default function Comparar() {
     },
 
     isValid(primeiraUf, segundaUf, dataComparacao){
-      console.log(primeiraUf !== '' && segundaUf !== '' && dataComparacao !== '');
       return primeiraUf !== '' && segundaUf !== '' && dataComparacao !== '';
     }
   }

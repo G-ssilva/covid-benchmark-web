@@ -24,7 +24,6 @@ export default function Listar() {
     },
 
     listarFiltrados(nomeBenchmarkSalvo) {
-      console.log(nomeBenchmarkSalvo);
       if(nomeBenchmarkSalvo === '') {
         let nomeBenchmark = document.getElementById("nomeBenchmarkSalvo");
         nomeBenchmark.value = '';
