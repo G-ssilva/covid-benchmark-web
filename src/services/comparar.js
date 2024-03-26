@@ -28,7 +28,15 @@ export default function Comparar() {
     },
 
     isValid(primeiraUf, segundaUf, dataComparacao){
-      return primeiraUf !== '' && segundaUf !== '' && dataComparacao !== '';
+      if(dataComparacao === '') {
+        return false;
+      }
+      const data = new Date(dataComparacao);
+
+      const dataInicio = new Date('2020-02-25');
+      const dataFim = new Date('2022-03-27');
+
+      return primeiraUf !== '' && segundaUf !== '' && data >= dataInicio && data <= dataFim;
     }
   }
 }
